@@ -10,6 +10,26 @@
     - postfix
     - package
 
+- name: Set mailname
+  debconf:
+    name: postfix
+    question: postfix/mailname
+    value: "{{ ansible_hostname }}.{{ postfix_tld }}"
+    vtype: string
+  tags:
+    - postfix
+    - package
+    
+- name: Set mailer_type
+  debconf:
+    name: postfix
+    question: postfix/main_mailer_type
+    value: 'Internet Site'
+    vtype: string
+  tags:
+    - postfix
+    - package
+  
 - name: postfix should be installed
   apt:
     name: postfix
